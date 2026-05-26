@@ -1,0 +1,33 @@
+[project]
+name = "termometro"
+version = "0.1.0"
+description = "Wordle/term.ooo style emoji scorer for comparing two strings"
+authors = [
+    { name = "Eduardo Barreto", email = "eduardopontobarreto@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = []
+
+[project.scripts]
+termometro = "termometro.cli:main"
+
+[build-system]
+requires = ["uv_build>=0.10.4,<0.11.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3",
+    "ruff>=0.6",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM", "RUF"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
