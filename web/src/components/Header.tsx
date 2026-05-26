@@ -1,8 +1,4 @@
-type HeaderProps = {
-  solved: boolean;
-};
-
-export function Header({ solved }: HeaderProps) {
+export function Header() {
   return (
     <header className="flex flex-col items-center gap-3 pt-4 pb-2 text-center">
       <h1 className="font-mono text-4xl font-bold tracking-tight md:text-6xl">
@@ -11,7 +7,6 @@ export function Header({ solved }: HeaderProps) {
       </h1>
       <p className="text-t3 font-mono text-[10px] tracking-[0.25em] uppercase md:text-xs">
         score wordle ao vivo
-        {solved && <span className="text-ok ml-2">// match</span>}
       </p>
     </header>
   );

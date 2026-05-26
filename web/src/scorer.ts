@@ -1,6 +1,6 @@
 export type Tile = "green" | "yellow" | "black" | "space" | "empty";
 
-export const TILE_EMOJI: Record<Exclude<Tile, "empty">, string> = {
+const TILE_EMOJI: Record<Exclude<Tile, "empty">, string> = {
   green: "🟩",
   yellow: "🟨",
   black: "⬛",
