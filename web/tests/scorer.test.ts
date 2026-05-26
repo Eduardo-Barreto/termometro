@@ -78,6 +78,18 @@ describe("score", () => {
     expect(score("ab", "abcd")).toEqual(["green", "green", "empty", "empty"]);
   });
 
+  test("marks answer-overflow spaces so word groups survive when guess is shorter", () => {
+    expect(score("oi", "oi tudo")).toEqual([
+      "green",
+      "green",
+      "space",
+      "empty",
+      "empty",
+      "empty",
+      "empty",
+    ]);
+  });
+
   test("pads with empty tiles when guess is longer", () => {
     expect(score("abcd", "ab")).toEqual(["green", "green", "black", "black"]);
   });

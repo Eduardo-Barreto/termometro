@@ -26,8 +26,8 @@ function normalize(text: string, opts: Required<ScoreOptions>): string {
 /**
  * Wordle two-pass scoring. Greens consume their answer-letter first so a
  * duplicated letter in the guess can't double-claim a single occurrence
- * in the answer. Space positions are tagged separately to preserve word
- * boundaries visually without distorting the letter accounting.
+ * in the answer. Space positions are tagged separately so word boundaries
+ * survive intact when the visual layout wraps, on either input.
  */
 export function score(guess: string, answer: string, options: ScoreOptions = {}): Tile[] {
   const opts: Required<ScoreOptions> = {
@@ -47,8 +47,9 @@ export function score(guess: string, answer: string, options: ScoreOptions = {})
     const g = ng[i];
     const a = na[i];
     if (g === undefined) {
-      tiles[i] = "empty";
-      if (a !== undefined && !/\s/.test(a)) {
+      if (a !== undefined && /\s/.test(a)) {
+        tiles[i] = "space";
+      } else if (a !== undefined) {
         remaining.set(a, (remaining.get(a) ?? 0) + 1);
       }
       continue;
