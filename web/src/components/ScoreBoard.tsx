@@ -40,7 +40,7 @@ export function ScoreBoard({ guess, answer, tiles }: ScoreBoardProps) {
                 key={`${cell.position}-${cell.tile}-${cell.char || "_"}`}
                 status={cell.tile}
                 letter={cell.char}
-                index={cell.position}
+                position={cell.position}
                 dim={lengthMismatch}
               />
             ))}
@@ -74,17 +74,16 @@ type WordGroup = {
 function groupTilesByWord(tiles: TileType[], chars: string[]): WordGroup[] {
   const groups: WordGroup[] = [];
   let current: WordGroup | null = null;
-  for (let i = 0; i < tiles.length; i++) {
-    const tile = tiles[i] as TileType;
+  for (const [position, tile] of tiles.entries()) {
     if (tile === "space") {
       current = null;
       continue;
     }
     if (!current) {
-      current = { start: i, cells: [] };
+      current = { start: position, cells: [] };
       groups.push(current);
     }
-    current.cells.push({ tile, char: chars[i] ?? "", position: i });
+    current.cells.push({ tile, char: chars[position] ?? "", position });
   }
   return groups;
 }
@@ -105,7 +104,7 @@ function CopyButton({ text }: CopyButtonProps) {
       await navigator.clipboard.writeText(text);
       setCopied(true);
     } catch {
-      setCopied(false);
+      // clipboard refused; stay idle
     }
   }
 
